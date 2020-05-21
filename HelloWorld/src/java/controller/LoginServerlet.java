@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author FX504GE
+ * @author TASS
  */
-public class LoginServlet extends HttpServlet {
+public class LoginServerlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +35,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServerlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginServerlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,9 +56,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<h1>Hello sevlet!!!!</h1>");
+        processRequest(request, response);
     }
 
     /**
@@ -72,17 +70,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        String userName = request.getParameter("username");
+        String pass = request.getParameter("pass");
         PrintWriter out = response.getWriter();
-        String u = request.getParameter("user");
-        String p = request.getParameter("pass");
-        String st ="Hello " + u;
-        if(u.equalsIgnoreCase("tass") && p.equals("123")){
-            st = "Hello " + u;
-        }else{
-            st="Login Fail";
+        if (userName.equalsIgnoreCase("tass") && pass.equals("123")) {
+            out.println("<h1 style='color:green'>Correct!!!</h1>");
+        } else {
+            out.println("<h1 style='color:red'>Incorrect!!!</h1>");
+
         }
-        out.println("<h1>"+st+"</h1>");
     }
 
     /**
