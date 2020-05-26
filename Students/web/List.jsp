@@ -11,28 +11,58 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>List Student</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <%
-            int num = (Integer) request.getAttribute("num");
-            ArrayList<Student> ls = new ArrayList<Student>();
-            for (int i = 0; i < num; i++) {
-                Student s = new Student();
-                s.generateStudent();
-                ls.add(s);
-            }
-            //display
-            for (int i = 0; i < ls.size(); i++) {
+        <h1>List Student</h1>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+            <%
+                int num = (Integer) request.getAttribute("num");
+                ArrayList<Student> ls = new ArrayList<Student>();
+                for (int i = 0; i < num; i++) {
+                    Student s = new Student();
+                    s.generateStudent();
+                    ls.add(s);
+                }
+                //display
+                for (int i = 0; i < ls.size(); i++) {
 
-        %>
-        <h2><%= ls.get(i).toString()%> </h2>
+            %>
+            <tr>
+                <td><%= ls.get(i).getCode()%></td>
+                <td><%= ls.get(i).getName()%></td>
+                <td><%= ls.get(i).getAge()%></td>
+            </tr>
+            <%
+                }
 
-        <%
-            }
+            %> 
 
-        %>
+
+        </table>       
+
 
 
 
