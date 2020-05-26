@@ -77,12 +77,16 @@ public class Student {
 
     public void generateStudent() {
         int rollNumber = 140000 + (int) (Math.random() * ((149999 - 140000) + 1));
-        code = "HE" + rollNumber;
+        if (new Random().nextBoolean()) {
+            code = "HE" + rollNumber;
+        } else {
+            code = "SE" + rollNumber;
+        }
+
         age = 1 + (int) (Math.random() * ((99 - 1) + 1));
 
         //random Name
-     
-        name = getRandomsString(12);
+        name = getRandomsString(5 + (int) (Math.random() * ((20 - 5) + 1)));
     }
 
     @Override
