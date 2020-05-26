@@ -31,7 +31,7 @@
         </style>
     </head>
     <body>
-        <h1>List Student</h1>
+        <h1>List Student - num = ${requestScope.num}</h1>
         <table>
             <tr>
                 <th>Code</th>
