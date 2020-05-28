@@ -38,4 +38,83 @@ public class CategoryDAO extends DBContext {
         }
         return categories;
     }
+
+    public boolean isExsitedCategory(String id) {
+        String sql = "SELECT * FROM dbo.Categories WHERE id=?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public void insert(Category c) {
+        String sql = "INSERT INTO Categories\n"
+                + "VALUES\n"
+                + "(?, ?, ?);";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getId());
+            statement.setString(2, c.getName());
+            statement.setString(3, c.getDescribe());
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void delete(String id) {
+        String sql = "DELETE FROM dbo.Categories WHERE id=?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public Category getCategoryById(String id) {
+        String sql = "SELECT * FROM dbo.Categories WHERE id=?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return new Category(rs.getString("id"), rs.getString("name"), rs.getString("desc"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public void update(Category c) {
+        String sql = "UPDATE dbo.Categories SET name = ?, describe =?\n"
+                    + "WHERE ID=?";
+        try {      
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getName());
+            statement.setString(2, c.getDescribe());
+            statement.setString(3, c.getId());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

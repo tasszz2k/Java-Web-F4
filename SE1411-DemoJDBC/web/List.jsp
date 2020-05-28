@@ -17,10 +17,10 @@
     <body>
         <h1>The list of categories</h1>
         <div class="container">
-            <a href="AddNew.JSP" class="button">Add New</a><br><br><br>
+            <a href="AddNew.jsp" class="button">Add New</a><br><br><br>
         </div>
         <table>
-           
+
 
             <%
                 ArrayList<Category> lc = null;
@@ -37,13 +37,14 @@
 
             <%
                 for (int i = 0; i < lc.size(); i++) {
+                    String id = lc.get(i).getId();
             %>
             <tr>
                 <td><%= lc.get(i).getId()%></td>
                 <td><%= lc.get(i).getName()%></td>
                 <td><%= lc.get(i).getDescribe()%></td>
-                <td><a class="action remove-btn" href="">Remove</a></td>
-                <td><a class="action update-btn"href="">Update</a></td>
+                <td><a class="action remove-btn" href="delete?id=<%= id%>">Remove</a></td>
+                <td><a class="action update-btn" href="Update.jsp?id=<%= id%>">Update</a></td>
             </tr>
 
             <%        }
