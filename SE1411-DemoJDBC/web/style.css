@@ -1,0 +1,61 @@
+h1{
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+}
+
+td, th {
+    border: 1px solid #a7a7a7;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.button {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.action {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
+}
+.remove-btn{
+    background-color: rgb(228, 7, 7);
+}
+.update-btn{
+    background-color: green;
+}
+
+.container{
+    text-align: center;
+}
