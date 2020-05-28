@@ -16,10 +16,11 @@
     </head>
     <body>
         <h1>The list of categories</h1>
+        <div class="container">
+            <a href="AddNew.JSP" class="button">Add New</a><br><br><br>
+        </div>
         <table>
-            <div class="container">
-                <a href="AddNew.JSP" class="button">Add New</a><br><br><br>
-            </div>
+           
 
             <%
                 ArrayList<Category> lc = null;
