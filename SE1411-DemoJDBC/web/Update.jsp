@@ -12,15 +12,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Add New Category</h1>
-        <% if (request.getAttribute("id") != null) {
+        <h1>Update</h1>
+        <% if (request.getParameter("id") != null) {
                 String id = request.getParameter("id");
                 CategoryDAO cdb = new CategoryDAO();
                 Category c = cdb.getCategoryById(id);
         %>
-        <h1>Update</h1>
+
         <div>
             <form action="update" method="post">
                 <label for="id">ID:</label><br />
@@ -33,5 +34,8 @@
                 <input type="submit" value="UPDATE" />
             </form>
         </div>
+        <%} else {%>
+        <h1>ID = <%= request.getParameter("id")%> is not exist!</h1>
+        <%}%>
     </body>
 </html>

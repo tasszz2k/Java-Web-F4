@@ -94,7 +94,7 @@ public class CategoryDAO extends DBContext {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return new Category(rs.getString("id"), rs.getString("name"), rs.getString("desc"));
+                return new Category(rs.getString("id"), rs.getString("name"), rs.getString("describe"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
