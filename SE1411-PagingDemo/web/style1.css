@@ -1,0 +1,98 @@
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  background-color: #4bad4e;
+}
+.pagination a.active {
+  background-color: red;
+  color: white;
+}
+.pagination a:hover:not(.active) {
+  background-color: chocolate;
+}
+
+/* a.active {
+  background-color: red;
+  color: red;
+} */
+body {
+  font-family: arial, sans-serif;
+}
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: red;
+}
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;
+}
+
+td,
+th {
+  border: 1px solid #a7a7a7;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.button {
+  background-color: #1c87c9;
+  border: none;
+  color: white;
+  padding: 20px 34px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.action {
+  background-color: #1c87c9;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin: 0 auto;
+  text-align: center;
+}
+.remove-btn {
+  background-color: rgb(228, 7, 7);
+}
+.update-btn {
+  background-color: green;
+}
+
+.container {
+  text-align: center;
+}
+
+div {
+  background-color: #f2f2f2;
+  text-align: center;
+  margin: 0 auto;
+}
+
+img {
+  max-width: 100px;
+  height: auto;
+}

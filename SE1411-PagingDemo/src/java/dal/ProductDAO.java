@@ -11,110 +11,54 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Category;
+import model.Product;
 
 /**
  *
  * @author TASS
  */
-public class CategoryDAO extends DBContext {
+public class ProductDAO extends DBContext {
 
-    public ArrayList<Category> getCategories() {
-        ArrayList<Category> categories = new ArrayList<>();
-        String sql = "SELECT ID, name, describe\n"
-                + "FROM dbo.Categories";
+    public ArrayList<Product> getProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        String sql = "SELECT ID,name,cat_ID,image,price,quantity,describe,status,adddate\n"
+                + "FROM dbo.products;";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Category c = new Category();
-                c.setId(rs.getString("ID"));
-                c.setName(rs.getString("name"));
-                c.setDescrible(rs.getString("describe"));
-                categories.add(c);
+                Product p = new Product();
+                p.setId(rs.getString(1));
+                p.setName(rs.getString(2));
+                p.setCatId(rs.getString(3));
+                p.setImage(rs.getString(4));
+                p.setPrice(rs.getDouble(5));
+                p.setQuantity(rs.getInt(6));
+                p.setDescribe(rs.getString(7));
+                p.setStatus(rs.getString(8));
+                p.setAddDate(rs.getDate(9));
+                products.add(p);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return categories;
+        return products;
     }
 
-    public boolean isExsitedCategory(String id) {
-        String sql = "SELECT * FROM dbo.Categories WHERE id=?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, id);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+    public ArrayList<Product> getProductsByPage(ArrayList<Product> products, int start, int end) {
+        ArrayList<Product> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(products.get(i));
         }
-
-        return false;
-    }
-
-    public void insert(Category c) {
-        String sql = "INSERT INTO Categories\n"
-                + "VALUES\n"
-                + "(?, ?, ?);";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, c.getId());
-            statement.setString(2, c.getName());
-            statement.setString(3, c.getDescribe());
-            statement.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return arr;
 
     }
 
-    public void delete(String id) {
-        String sql = "DELETE FROM dbo.Categories WHERE id=?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, id);
-            statement.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    public Category getCategoryById(String id) {
-        String sql = "SELECT * FROM dbo.Categories WHERE id=?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, id);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                return new Category(rs.getString("id"), rs.getString("name"), rs.getString("describe"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
-    public void update(Category c) {
-        String sql = "UPDATE dbo.Categories SET name = ?, describe =?\n"
-                    + "WHERE ID=?";
-        try {      
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, c.getName());
-            statement.setString(2, c.getDescribe());
-            statement.setString(3, c.getId());
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    public static void main(String[] args) {
+//        ArrayList<Product> lp = new ProductDAO().getProducts();
+//        for (int i = 0; i < lp.size(); i++) {
+//            System.out.println(lp.get(i).toString());
+//
+//        }
+//    }
 }
