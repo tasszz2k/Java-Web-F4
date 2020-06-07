@@ -87,7 +87,8 @@ public class SearchServlet extends HttpServlet {
         }
 
         EmployeeDAO edb = new EmployeeDAO();
-        List<Employee> listEmployees = edb.getEmployees(-1, "", -1, "", null, null);
+        System.out.println(id);
+        List<Employee> listEmployees = edb.getEmployees(id, name, gender, department, null, null);
         request.setAttribute("listEmployees", listEmployees);
         request.getRequestDispatcher("view/search.jsp").forward(request, response);
 

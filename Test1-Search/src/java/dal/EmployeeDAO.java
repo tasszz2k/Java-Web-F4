@@ -34,27 +34,31 @@ public class EmployeeDAO extends DBContext {
                 + "WHERE Employee.name LIKE ?\n";
 
         try {
-            int iID = 1, iGender = 1, iDepartment = 1, iDOB = 1;
+            int iID = 1, iGender = 2, iDepartment = 2, iDOB = 2;
             if (id >= 0) {
-                sql += "AND Employee.id = 1\n";
+                System.out.println("1111");
+                sql += "AND Employee.id = ? \n";
                 iID += 1;
             }
             if (gender == 0 || gender == 1) {
+                System.out.println("2222");
                 sql += "AND gender = ?\n";
                 iGender = iID + 1;
+
             }
             if (!department.isEmpty()) {
+                System.out.println("333");
                 sql += "AND Department.name = ?\n";
                 iDepartment = iGender + 1;
             }
             //======//
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + name + "%");
-            if(id >= 0){
-                System.out.println(iID);
+            if (id >= 0) {
                 statement.setInt(iID, id);
             }
             if (gender == 0 || gender == 1) {
+                System.out.println("iGender: " + iGender);
                 if (gender == 0) {
                     statement.setBoolean(iGender, false);
                 } else {
@@ -83,7 +87,7 @@ public class EmployeeDAO extends DBContext {
 
     public static void main(String[] args) {
         EmployeeDAO edb = new EmployeeDAO();
-        List<Employee> le = edb.getEmployees(-1, "", -1, "IA", null, null);
+        List<Employee> le = edb.getEmployees(-1, "", 1, "", null, null);
         for (Employee employee : le) {
             System.out.println(employee.toString());
         }
