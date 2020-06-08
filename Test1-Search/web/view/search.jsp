@@ -1,4 +1,6 @@
 <%-- Document : search Created on : Jun 6, 2020, 9:44:16 PM Author : TASS --%>
+<%@page import="model.Department"%>
+<%@page import="dal.DepartmentDAO"%>
 <%@page import="model.Employee"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,6 +51,8 @@
                     <th>Department</th>
                 </tr>
                 <%
+                    DepartmentDAO ddb = new DepartmentDAO();
+                    List<Department> ld = ddb.getDepartments();
                     List<Employee> le = null;
                     if (request.getAttribute("listEmployees") != null) {
                         le = (List<Employee>) request.getAttribute("listEmployees");
@@ -56,15 +60,16 @@
                         for (int i = 0; i < le.size(); i++) {
                 %>
                 <tr>
-                    <th><%= le.get(i).getId() %></th>
-                    <th><%= le.get(i).getName() %></th>
+                    <th><%= le.get(i).getId()%></th>
+                    <th><%= le.get(i).getName()%></th>
                     <th><%= le.get(i).isGender()%></th>
                     <th><%= le.get(i).getDob()%></th>
-                    <th><%= le.get(i).getDid()%></th>
+                    <th><%= ddb.getNameById(ld, le.get(i).getDid())%></th>
                 </tr>
 
 
-                <%}}
+                <%}
+                    }
                 %>
             </table>
         </div>

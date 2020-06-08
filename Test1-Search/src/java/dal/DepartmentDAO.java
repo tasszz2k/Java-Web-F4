@@ -37,7 +37,16 @@ public class DepartmentDAO extends DBContext {
         }
         return departments;
     }
-    
+
+    public String getNameById(List<Department> ld, int id) {
+        for (Department department : ld) {
+            if (department.getId() == id) {
+                return department.getName();
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         DepartmentDAO ddb = new DepartmentDAO();
         List<Department> ld = ddb.getDepartments();

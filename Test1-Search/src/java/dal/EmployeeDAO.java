@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Department;
 import model.Employee;
 
 /**
@@ -28,13 +29,14 @@ public class EmployeeDAO extends DBContext {
                 + "	   Employee.name,\n"
                 + "	   gender,\n"
                 + "	   dob,\n"
-                + "	   Department.name\n"
+                + "	   Department.name,\n"
+                + "	   did\n"
                 + "FROM dbo.Employee\n"
                 + "	INNER JOIN dbo.Department ON Department.id = Employee.did\n"
                 + "WHERE Employee.name LIKE ?\n";
 
         try {
-            int iID = 1, iGender = 2, iDepartment = 2, iDOB = 2;
+            int iID = 1, iGender = 1, iDepartment = 1, iDOBFrom = 1, iDOBTo = 1;
             if (id >= 0) {
                 System.out.println("1111");
                 sql += "AND Employee.id = ? \n";
@@ -50,6 +52,15 @@ public class EmployeeDAO extends DBContext {
                 System.out.println("333");
                 sql += "AND Department.name = ?\n";
                 iDepartment = iGender + 1;
+            }
+            if (dobFrom != null) {
+                sql += "AND dob >= ?\n";
+                iDOBFrom = iDepartment + 1;
+
+            }
+            if (dobTo != null) {
+                sql += "AND dob <= ?\n";
+                iDOBTo = iDOBFrom + 1;
             }
             //======//
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -68,6 +79,12 @@ public class EmployeeDAO extends DBContext {
             if (!department.isEmpty()) {
                 statement.setString(iDepartment, department);
             }
+            if (dobFrom != null) {
+                statement.setDate(iDOBFrom, dobFrom);
+            }
+            if (dobTo != null) {
+                statement.setDate(iDOBTo, dobTo);
+            }
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -76,7 +93,8 @@ public class EmployeeDAO extends DBContext {
                 e.setName(rs.getString("name"));
                 e.setGender(rs.getBoolean("gender"));
                 e.setDob(rs.getDate("dob"));
-                e.setName(rs.getString("name"));
+                e.setDid(rs.getInt("did"));
+
                 employees.add(e);
             }
         } catch (SQLException ex) {
@@ -87,9 +105,12 @@ public class EmployeeDAO extends DBContext {
 
     public static void main(String[] args) {
         EmployeeDAO edb = new EmployeeDAO();
-        List<Employee> le = edb.getEmployees(-1, "", 1, "", null, null);
+        DepartmentDAO ddb = new DepartmentDAO();
+        List<Employee> le = edb.getEmployees(-1, "", -1, "", null, new Date(1999, 01, 01));
+        List<Department> ld = ddb.getDepartments();
         for (Employee employee : le) {
-            System.out.println(employee.toString());
+            System.out.println(ddb.getNameById(ld, employee.getDid()));
+            System.out.println(employee.toString() + ", ");
         }
     }
 }

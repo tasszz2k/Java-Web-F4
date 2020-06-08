@@ -8,6 +8,7 @@ package controller;
 import dal.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +62,7 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
         int id = -1, gender = -1;
         String name = "", department = "";
+        Date DOBFrom = null, DOBTo = null;
         if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
             id = Integer.parseInt(request.getParameter("id"));
         }
@@ -85,10 +87,18 @@ public class SearchServlet extends HttpServlet {
                 department = "";
             }
         }
+        if (request.getParameter("dob-from") != null && !request.getParameter("dob-from").isEmpty()) {
+            String dobFrom = request.getParameter("dob-from");
+            DOBFrom = Date.valueOf(request.getParameter("dob-from"));
+        }
+        if (request.getParameter("dob-to") != null && !request.getParameter("dob-to").isEmpty()) {
+            String dobTo = request.getParameter("dob-to");
+            DOBTo = Date.valueOf(request.getParameter("dob-to"));
+        }
 
         EmployeeDAO edb = new EmployeeDAO();
-        System.out.println(id);
-        List<Employee> listEmployees = edb.getEmployees(id, name, gender, department, null, null);
+
+        List<Employee> listEmployees = edb.getEmployees(id, name, gender, department, DOBFrom, DOBTo);
         request.setAttribute("listEmployees", listEmployees);
         request.getRequestDispatcher("view/search.jsp").forward(request, response);
 
