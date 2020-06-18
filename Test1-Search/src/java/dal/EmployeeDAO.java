@@ -103,14 +103,132 @@ public class EmployeeDAO extends DBContext {
         return employees;
     }
 
+    public Employee getEmployeeById(int id) {
+
+        List<Employee> employees = new ArrayList<>();
+        String sql = "SELECT Employee.id,\n"
+                + "	   Employee.name,\n"
+                + "	   gender,\n"
+                + "	   dob,\n"
+                + "	   Department.name,\n"
+                + "	   did\n"
+                + "FROM dbo.Employee\n"
+                + "	INNER JOIN dbo.Department ON Department.id = Employee.did\n";
+
+        try {
+            if (id >= 0) {
+                sql += " WHERE Employee.id = ? \n";
+            }
+
+            //======//
+            PreparedStatement statement = connection.prepareStatement(sql);
+            if (id >= 0) {
+                statement.setInt(1, id);
+            }
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Employee e = new Employee();
+                e.setId(rs.getInt("id"));
+                e.setName(rs.getString("name"));
+                e.setGender(rs.getBoolean("gender"));
+                e.setDob(rs.getDate("dob"));
+                e.setDid(rs.getInt("did"));
+                return e;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public boolean insertNewEmployee(Employee e) {
+
+        String sql = "INSERT INTO [dbo].[Employee]\n"
+                + "           ([id]\n"
+                + "           ,[name]\n"
+                + "           ,[dob]\n"
+                + "           ,[gender]\n"
+                + "           ,[did])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?);";
+
+        try {
+            //======//
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, e.getId());
+            statement.setString(2, e.getName());
+            statement.setDate(3, e.getDob());
+            statement.setBoolean(4, e.isGender());
+            statement.setInt(5, e.getDid());
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean updateEmployee(Employee e) {
+
+        String sql = "UPDATE [dbo].[Employee]\n"
+                + "   SET [name] = ?\n"
+                + "      ,[dob] = ?\n"
+                + "      ,[gender] = ?\n"
+                + "      ,[did] = ?\n"
+                + " WHERE id = ?";
+
+        try {
+            //======//
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, e.getName());
+            statement.setDate(2, e.getDob());
+            statement.setBoolean(3, e.isGender());
+            statement.setInt(4, e.getDid());
+            statement.setInt(5, e.getId());
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean deleteEmployeeById(int id) {
+        String sql = "DELETE FROM [dbo].[Employee]\n"
+                + "      WHERE id = ?";
+
+        try {
+            //======//
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         EmployeeDAO edb = new EmployeeDAO();
         DepartmentDAO ddb = new DepartmentDAO();
-        List<Employee> le = edb.getEmployees(-1, "", -1, "", null, new Date(1999, 01, 01));
-        List<Department> ld = ddb.getDepartments();
-        for (Employee employee : le) {
-            System.out.println(ddb.getNameById(ld, employee.getDid()));
-            System.out.println(employee.toString() + ", ");
-        }
+//        List<Employee> le = edb.getEmployees(-1, "", -1, "", null, new Date(1999, 01, 01));
+//        List<Department> ld = ddb.getDepartments();
+//        for (Employee employee : le) {
+//            System.out.println(ddb.getNameById(ld, employee.getDid()));
+//            System.out.println(employee.toString() + ", ");
+//        }
+
+        Employee e = edb.getEmployeeById(-1);
+        System.out.println(e.toString());
+//        System.out.println(edb.insertNewEmployee(new Employee(101, e.getName(), e.getDob(), false, 1)));
+        edb.updateEmployee(new Employee(101, e.getName(), e.getDob(), true, 1));
     }
 }

@@ -1,0 +1,105 @@
+body{
+    font-family: arial, sans-serif;
+}
+h1{
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+
+}
+table {
+
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+}
+
+td, th {
+    border: 1px solid #a7a7a7;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.button {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.action {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin: 0 auto;
+    text-align: center;
+}
+.remove-btn{
+    background-color: rgb(228, 7, 7);
+}
+.update-btn{
+    background-color: green;
+}
+
+.container{
+    text-align: center;
+}
+
+/*ADD NEW*/
+form{
+    margin: 0 auto;
+    font-size: 25px ;
+}
+input{
+    font-size:50px;
+    width: 500px;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
