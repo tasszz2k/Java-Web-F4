@@ -5,22 +5,24 @@
  */
 package controller;
 
-import dal.EmployeeDAO;
+import dal.JobDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Employee;
+import javax.servlet.jsp.PageContext;
+import model.Job;
 
 /**
  *
  * @author TASS
  */
-public class SearchServlet extends HttpServlet {
+@WebServlet(name = "AddJobServlet", urlPatterns = {"/add-job"})
+public class AddJobServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class SearchServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SearchServlet</title>");
+            out.println("<title>Servlet addJobServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SearchServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addJobServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,49 +62,7 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = -1, gender = -1;
-        String name = "", department = "";
-        Date DOBFrom = null, DOBTo = null;
-        
-        if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
-            id = Integer.parseInt(request.getParameter("id"));
-        }
-        if (request.getParameter("name") != null && !request.getParameter("name").isEmpty()) {
-            name = request.getParameter("name");
-        }
-        if (request.getParameter("gender") != null && !request.getParameter("gender").isEmpty()) {
-            if (request.getParameter("gender").compareTo("male") == 0) {
-                gender = 1;
-            } else if (request.getParameter("gender").compareTo("female") == 0) {
-                gender = 0;
-            } else {
-                gender = -1;
-            }
-        }
-        if (request.getParameter("department") != null && !request.getParameter("department").isEmpty()) {
-            if (request.getParameter("department").compareTo("is") == 0) {
-                department = "IS";
-            } else if (request.getParameter("department").compareTo("ia") == 0) {
-                department = "IA";
-            } else {
-                department = "";
-            }
-        }
-        if (request.getParameter("dob-from") != null && !request.getParameter("dob-from").isEmpty()) {
-            String dobFrom = request.getParameter("dob-from");
-            DOBFrom = Date.valueOf(request.getParameter("dob-from"));
-        }
-        if (request.getParameter("dob-to") != null && !request.getParameter("dob-to").isEmpty()) {
-            String dobTo = request.getParameter("dob-to");
-            DOBTo = Date.valueOf(request.getParameter("dob-to"));
-        }
-
-        EmployeeDAO edb = new EmployeeDAO();
-
-        List<Employee> listEmployees = edb.getEmployees(id, name, gender, department, DOBFrom, DOBTo);
-        request.setAttribute("listEmployees", listEmployees);
-        request.getRequestDispatcher("view/search.jsp").forward(request, response);
-
+        processRequest(request, response);
     }
 
     /**
@@ -116,7 +76,22 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String jobName = request.getParameter("job-name");
+        double jobSalary = Double.parseDouble(request.getParameter("job-salary"));
+        Date jobDateCreated = Date.valueOf(request.getParameter("date-created"));
+        String activated = request.getParameter("activated");
+        boolean jobActivated = true;
+        if (activated.equals("yes")) {
+            jobActivated = true;
+        } else {
+            jobActivated = false;
+        }
+
+        Job job = new Job(jobName, jobSalary, jobDateCreated, jobActivated);
+        JobDAO jdb = new JobDAO();
+
+        jdb.save(job);
+        response.sendRedirect("list-job");
     }
 
     /**
