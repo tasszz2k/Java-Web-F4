@@ -6,6 +6,7 @@
 package controller;
 
 import dal.EmployeeDAO;
+import dal.EmployeeJobDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -65,12 +66,11 @@ public class ArrangeJobServlet extends HttpServlet {
         Job job = (Job) request.getAttribute("job");
         EmployeeDAO edb = new EmployeeDAO();
         List<Employee> employees = edb.getAll();
-        
-   
-        request.setAttribute("employees", employees);
 
+        request.setAttribute("employees", employees);
         request.setAttribute("job", job);
-        request.getRequestDispatcher("arrangeJob.jsp").forward(request, response);
+
+        request.getRequestDispatcher("arrangeJob.jsp?").forward(request, response);
     }
 
     /**
@@ -84,8 +84,15 @@ public class ArrangeJobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("arrangeJob.jsp").forward(request, response);
+        int jobId = Integer.parseInt(request.getParameter("jobId").trim());
+        String employeeId = request.getParameter("employee-id");
+        EmployeeJobDAO ejdb = new EmployeeJobDAO();
+        if(!ejdb.checkEmployeeJob(employeeId, jobId)){
+            ejdb.insert(employeeId, jobId);
+        }
+        
+        
+        response.sendRedirect("employee-job?jobId=" + jobId);
     }
 
     /**
