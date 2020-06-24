@@ -114,10 +114,17 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
             int i = 0;
             if (listCookie != null) {
                 while (i < listCookie.length) {
+        
+      out.write("\n");
+      out.write("        ");
+      out.print( listCookie[i].getName());
+      out.write("\n");
+      out.write("        ");
+
                     if (listCookie[i].getName().equals("username")) {
                         username = listCookie[i].getValue();
                     }
-                    if (listCookie[i].getName().equals("password")) {
+                    if (listCookie[i].getName().equals("pass")) {
                         password = listCookie[i].getValue();
                     }
                     if (listCookie[i].getName().equals("remember")) {
@@ -185,8 +192,8 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        </div>\n");
       out.write("\n");
       out.write("                        <div class=\"text-left p-t-8 p-b-31\">\n");
-      out.write("                            <input type=\"checkbox\" name=\"rem\" value=\"ON\" ");
-      out.print( "ON".equals(remember) ? "check='checked'" : "");
+      out.write("                            <input type=\"checkbox\" name=\"remember\" value=\"ON\" ");
+      out.print( "ON".equals(remember) ? "checked='checked'" : "");
       out.write("/> remember me<br/>\n");
       out.write("                        </div>\n");
       out.write("\n");

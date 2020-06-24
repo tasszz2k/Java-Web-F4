@@ -63,7 +63,7 @@ public class ListServlet extends HttpServlet {
         CategoryDAO cdb = new CategoryDAO();
         ArrayList<Category> data = cdb.getCategories();
         request.setAttribute("data", data);
-        request.getRequestDispatcher("view/listCategories.jsp").forward(request, response);
+        request.getRequestDispatcher("listCategories.jsp").forward(request, response);
     }
 
     /**

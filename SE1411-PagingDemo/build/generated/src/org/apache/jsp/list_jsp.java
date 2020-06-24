@@ -44,30 +44,30 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Paging Demo</title>\n");
-      out.write("        <link rel=\"stylesheet\" href=\"style1.css\">\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <h1>MEWWWWWWWW !!!</h1>\n");
-      out.write("        <table>\n");
-      out.write("            <th>ID</th>\n");
-      out.write("            <th>Name</th>\n");
-      out.write("            <th>Image</th>\n");
-      out.write("            <th>Price</th>\n");
-      out.write("            <th>Quantity</th>\n");
-      out.write("            <th>Describe</th>\n");
-      out.write("\n");
-      out.write("\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        <title>Paging Demo</title>\r\n");
+      out.write("        <link rel=\"stylesheet\" href=\"style1.css\">\r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("        <h1>MEWWWWWWWW !!!</h1>\r\n");
+      out.write("        <table>\r\n");
+      out.write("            <th>ID</th>\r\n");
+      out.write("            <th>Name</th>\r\n");
+      out.write("            <th>Image</th>\r\n");
+      out.write("            <th>Price</th>\r\n");
+      out.write("            <th>Quantity</th>\r\n");
+      out.write("            <th>Describe</th>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("            ");
 
                 ProductDAO pdb = new ProductDAO();
@@ -85,35 +85,35 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
                 ArrayList<Product> list = pdb.getProductsByPage(arr, start, end);
                 for (Product p : list) {
             
-      out.write("\n");
-      out.write("            <tr>\n");
+      out.write("\r\n");
+      out.write("            <tr>\r\n");
       out.write("                <td>");
       out.print(p.getId());
-      out.write("</td>\n");
+      out.write("</td>\r\n");
       out.write("                <td>");
       out.print(p.getName());
-      out.write("</td>\n");
+      out.write("</td>\r\n");
       out.write("                <td><img src=\"");
       out.print(p.getImage());
-      out.write("\"/></td>\n");
+      out.write("\"/></td>\r\n");
       out.write("                <td>");
       out.print(p.getPrice());
-      out.write("</td>\n");
+      out.write("</td>\r\n");
       out.write("                <td>");
       out.print(p.getQuantity());
-      out.write("</td>\n");
+      out.write("</td>\r\n");
       out.write("                <td>");
       out.print(p.getDescribe());
-      out.write("</td>\n");
-      out.write("            </tr>\n");
+      out.write("</td>\r\n");
+      out.write("            </tr>\r\n");
       out.write("            ");
 
                 }
             
-      out.write("\n");
-      out.write("        </table>\n");
-      out.write("        <div class=\"pages\">\n");
-      out.write("            <ul>\n");
+      out.write("\r\n");
+      out.write("        </table>\r\n");
+      out.write("        <div class=\"pages\">\r\n");
+      out.write("            <ul>\r\n");
       out.write("                ");
 
                     int currPage;
@@ -135,8 +135,8 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
                         }
                         if (i == currPage) {
                 
-      out.write("\n");
-      out.write("                <li class=\"pagination\">\n");
+      out.write("\r\n");
+      out.write("                <li class=\"pagination\">\r\n");
       out.write("                    <a class=\"active\" href=\"list.jsp?start=");
       out.print(a);
       out.write("&end=");
@@ -146,14 +146,14 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write('"');
       out.write('>');
       out.print(i);
-      out.write("</a>\n");
-      out.write("                </li>\n");
+      out.write("</a>\r\n");
+      out.write("                </li>\r\n");
       out.write("                ");
 
                 } else {
                 
-      out.write(" \n");
-      out.write("                <li class=\"pagination\">\n");
+      out.write(" \r\n");
+      out.write("                <li class=\"pagination\">\r\n");
       out.write("                    <a  href=\"list.jsp?start=");
       out.print(a);
       out.write("&end=");
@@ -163,21 +163,21 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write('"');
       out.write('>');
       out.print(i);
-      out.write("</a>\n");
-      out.write("                </li>\n");
+      out.write("</a>\r\n");
+      out.write("                </li>\r\n");
       out.write("                ");
 
                         }
                     }
                 
-      out.write(" \n");
-      out.write("            </ul>\n");
-      out.write("        </div>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write(" \r\n");
+      out.write("            </ul>\r\n");
+      out.write("        </div>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("    </body>\r\n");
+      out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

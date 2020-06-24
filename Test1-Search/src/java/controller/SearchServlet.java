@@ -63,6 +63,7 @@ public class SearchServlet extends HttpServlet {
         int id = -1, gender = -1;
         String name = "", department = "";
         Date DOBFrom = null, DOBTo = null;
+        
         if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
             id = Integer.parseInt(request.getParameter("id"));
         }

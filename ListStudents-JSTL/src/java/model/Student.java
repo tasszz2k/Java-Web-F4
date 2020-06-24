@@ -20,16 +20,18 @@ public class Student {
     private int age;
     private boolean gender;
     private String address;
+    private int score;
 
     public Student() {
     }
 
-    public Student(String code, String name, int age, boolean gender, String address) {
+    public Student(String code, String name, int age, boolean gender, String address, int score) {
         this.code = code;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.address = address;
+        this.score = score;
     }
 
     public String getCode() {
@@ -70,6 +72,14 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
     
 
@@ -121,7 +131,7 @@ public class Student {
             name = "Mrs.";
         }
         //random Name
-        name += getRandomsString(5 + (int) (Math.random() * ((20 - 5) + 1)));
+        name += getRandomsString(randomIntegerInRange(5, 10)) + " " + getRandomsString(randomIntegerInRange(5, 10));
 
         int indexAddress = randomIntegerInRange(0, 2);
         switch (indexAddress) {
@@ -135,12 +145,14 @@ public class Student {
                 address = "TB";
                 break;
         }
+        
+        score= randomIntegerInRange(0, 10);
 
     }
 
     @Override
     public String toString() {
-        return "Student{" + "code=" + code + ", name=" + name + ", age=" + age + ", gender=" + gender + ", address=" + address + '}';
+        return "Student{" + "code=" + code + ", name=" + name + ", age=" + age + ", gender=" + gender + ", address=" + address + ", score=" + score + '}';
     }
 
     public static void main(String[] args) {
@@ -152,7 +164,7 @@ public class Student {
         }
         for (int i = 0; i < ls.size(); i++) {
             System.out.println(ls.get(i).toString());
-
+//            if (ls.get(i).equals("113"));
         }
     }
 

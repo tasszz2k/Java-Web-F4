@@ -13,14 +13,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List Student</title>
         <style>
-            h1{
-                text-align: center;
-            }
             table {
                 font-family: arial, sans-serif;
                 border-collapse: collapse;
-                width: 80%;
-                margin: 0 auto;
+                width: 100%;
             }
 
             td, th {
@@ -29,9 +25,9 @@
                 padding: 8px;
             }
 
-/*            tr:nth-child(even) {
+            tr:nth-child(even) {
                 background-color: #dddddd;
-            }*/
+            }
         </style>
     </head>
     <body>
@@ -40,8 +36,7 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Gender</th>
-                <th>City</th>
+                <th>Age</th>
             </tr>
             <%
                 int num = (Integer) request.getAttribute("num");
@@ -58,18 +53,7 @@
             <tr>
                 <td><%= ls.get(i).getCode()%></td>
                 <td><%= ls.get(i).getName()%></td>
-
-                <%
-                    if (ls.get(i).isGender()) {
-                %> 
-                <td><img src="male.png" alt="male"></td>
-                    <% } else {%>
-                <td><img src="female.png" alt="female"></td>
-                    <%
-                        }
-
-                    %> 
-                <td><%= ls.get(i).getCity()%></td>
+                <td><%= ls.get(i).getAge()%></td>
             </tr>
             <%
                 }
@@ -79,7 +63,8 @@
 
         </table>       
 
-        
+
+
 
 
     </body>

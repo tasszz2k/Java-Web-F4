@@ -12,9 +12,10 @@
         <title>Search</title>
     </head>
     <body>
+
         <h1>Search</h1>
         <div>
-            <form action="/Test1-Search/search" method="get">
+            <form action="${pageContext.request.contextPath}/search" method="get">
                 <label for="">ID: </label>
                 <input type="text" name="id" /><br /><br />
                 <label for="">Name: </label>
@@ -41,6 +42,12 @@
             </form>
         </div>
 
+        <hr>
+        <div class="container">
+            <a href="/Test1-Search/view/insert.jsp" class="button">Add New</a><br><br><br>
+        </div>
+
+
         <div>
             <table>
                 <tr>
@@ -49,6 +56,7 @@
                     <th>Gender</th>
                     <th>DOB</th>
                     <th>Department</th>
+                    <th colspan="2" id="action">Action</th>
                 </tr>
                 <%
                     DepartmentDAO ddb = new DepartmentDAO();
@@ -58,6 +66,7 @@
                         le = (List<Employee>) request.getAttribute("listEmployees");
 
                         for (int i = 0; i < le.size(); i++) {
+                            int id = le.get(i).getId();
                 %>
                 <tr>
                     <th><%= le.get(i).getId()%></th>
@@ -65,6 +74,8 @@
                     <th><%= le.get(i).isGender()%></th>
                     <th><%= le.get(i).getDob()%></th>
                     <th><%= ddb.getNameById(ld, le.get(i).getDid())%></th>
+                    <td><a class="action remove-btn" href="/Test1-Search/delete?id=<%= id%>">Remove</a></td>
+                    <td><a class="action update-btn" href="/Test1-Search/view/update.jsp?id=<%= id%>">Update</a></td>
                 </tr>
 
 

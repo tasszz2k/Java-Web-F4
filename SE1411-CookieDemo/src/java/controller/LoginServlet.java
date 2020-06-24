@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.sendRedirect("view/login.jsp");
+            response.sendRedirect("login.jsp");
     }
 
     /**
@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
         if((account)==null){
             String mess = username + " or " + pass + " incorrect!";
             request.setAttribute("mess", mess);
-            request.getRequestDispatcher("view/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }else{
             HttpSession session =request.getSession(true);
             session.setAttribute("account", account);
@@ -106,7 +106,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(cookiePassword);
             response.addCookie(cookieRemember);
             
-            response.sendRedirect("view/welcome.jsp");
+            response.sendRedirect("welcome.jsp");
         }
         
     }
