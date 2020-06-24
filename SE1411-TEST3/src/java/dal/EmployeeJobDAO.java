@@ -41,8 +41,47 @@ public class EmployeeJobDAO extends DBContext {
         }
         return false;
     }
+
+    public void insert(String employeeId, int jobId) {
+        StringBuilder sql = new StringBuilder("insert into JobEmployee(Empid,Jobid) values(?,?)");
+        PreparedStatement statement = null;
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(sql.toString());
+//            setParameter(statement, parameters);
+            statement.setString(1, employeeId);
+            statement.setInt(2, jobId);
+
+            statement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(EmployeeJobDAO.class.getName()).log(Level.SEVERE, null, ex);
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(EmployeeJobDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                //close all connection
+                if (connection != null) {
+                    connection.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(EmployeeJobDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         EmployeeJobDAO db = new EmployeeJobDAO();
         System.out.println(db.checkEmployeeJob("EMP02", 2));
+        db.insert("EMP03", 1);
     }
 }

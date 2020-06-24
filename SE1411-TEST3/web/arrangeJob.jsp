@@ -4,27 +4,29 @@
     Author     : TASS
 --%>
 
+<%@page import="model.Job"%>
+<%@page import="model.Employee"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Arange Job</title>
     </head>
-    <body>
-
+    <body>     
         <h1>Assign a job "${job.name}" to an employee</h1>
-
-        <form action="" method="">
-
+        <form action="${pageContext.request.contextPath}/arrange-job" method="post">
+            <input type="hidden"  name="jobId" value="${job.id}">
             <label>Select an employee:</label>
-            <select>
+            <select name="employee-id">
                 <c:forEach items="${employees}" var="employee">
-                    <option value="${employee.id}" >${employee.name}</option>
-                    
+                    <option value="${employee.id.trim()}" >${employee.fullName}</option>
                 </c:forEach>
+
             </select>
-                    
             <br><br>
             <input type="submit" value="Assign">
         </form>

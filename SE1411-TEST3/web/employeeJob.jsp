@@ -4,6 +4,7 @@
     Author     : TASS
 --%>
 
+<%@page import="model.Job"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,8 +15,10 @@
     </head>
     <body>
         <h1>List of all employee are working as "${job.name}"</h1>
+        <%
+            request.getSession().setAttribute("job", (Job)request.getAttribute("job"));
+        %>
         <form action="${pageContext.request.contextPath}/arrange-job" method="get">
-            <c:set var = "job" scope = "session" value = "${job}"/>
             <c:set var = "count" scope = "page" value = "0"/>
             <c:forEach items="${employees}" var="employee">
                 <c:set var = "employeeId" scope = "request" value = "${employee.id}"/>
